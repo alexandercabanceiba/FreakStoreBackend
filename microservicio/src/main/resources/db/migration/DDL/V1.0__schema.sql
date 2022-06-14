@@ -49,3 +49,33 @@ ADD CONSTRAINT factura_fk
   REFERENCES factura (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+ create table freak_categoria (
+    ID int(11) NOT NULL auto_increment,
+    DESCRIPCION varchar(50) NOT NULL,
+    primary key (ID)
+ );
+
+ create table freak_articulo (
+    ID int(11) NOT NULL auto_increment,
+    DESCRIPCION varchar(50) NOT NULL,
+    ID_CATEGORIA int(11) NOT NULL,
+    PRECIO decimal(10,0) DEFAULT NULL,
+    primary key (ID)
+ );
+
+ create table freak_inventario (
+    ID int(11) NOT NULL auto_increment,
+    ID_ARTICULO int(11) NOT NULL,
+    CANTIDAD int(11) DEFAULT NULL,
+    FECHA_INGRESO date DEFAULT NULL,
+    primary key (ID)
+ );
+
+ create table freak_venta (
+    ID int(11) NOT NULL auto_increment,
+    ID_ARTICULO int(11) NOT NULL,
+    PRECIO_VENTA decimal(10,0) DEFAULT NULL,
+    CANTIDAD_VENTA int(11) DEFAULT NULL,
+    primary key (ID)
+ );

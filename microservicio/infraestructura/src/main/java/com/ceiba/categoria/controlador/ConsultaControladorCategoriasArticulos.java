@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categoria-producto")
+@RequestMapping("/categoria")
 @Tag(name = "Controlador consulta de las categorias de los articulos")
 public class ConsultaControladorCategoriasArticulos {
     private final ManejadorConsultarCategoriasArticulos manejadorConsultarCategoriasArticulos;

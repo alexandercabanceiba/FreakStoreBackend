@@ -16,7 +16,7 @@ spring:
    datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
-      jdbcUrl: jdbc:mysql://localhost:3306/freak
+      jdbcUrl: jdbc:mysql://localhost:3306/freakstore
       username: root
       password: 
       hikari:
