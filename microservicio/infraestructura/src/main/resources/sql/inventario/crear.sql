@@ -1,0 +1,1 @@
+insert into freak_inventario(ID_ARTICULO, CANTIDAD, FECHA_INGRESO ) values(:ID_ARTICULO, :CANTIDAD, :FECHA_INGRESO)
