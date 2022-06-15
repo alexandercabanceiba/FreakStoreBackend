@@ -1,6 +1,5 @@
 package com.ceiba.venta.adaptador.dao;
 
-import com.ceiba.articulo.modelo.entidad.ArticuloInventario;
 import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.venta.modelo.entidad.Venta;
 import org.springframework.jdbc.core.RowMapper;
