@@ -13,8 +13,7 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-     jdk 'JDK13_Centos' //Verisión preinstalada en la Configuración del Master
-     gradle 'Gradle5.0_Centos'
+     jdk 'JDK17_Centos' //Verisión preinstalada en la Configuración del Master
   }
 
   //Aquí comienzan los “items” del Pipeline
