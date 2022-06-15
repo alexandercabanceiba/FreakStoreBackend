@@ -46,7 +46,7 @@ pipeline {
      steps{
             sonarqubeMasQualityGatesP(
             sonarKey:'co.com.ceiba.adn:freak.store-alexander.cabanillas',
-            sonarName:'CeibaADN-FreakStore(alexander.cabanillas)',
+            sonarName:'CeibaADN-FreakStore',
             sonarPathProperties:'./sonar-project.properties')
          }
     }
