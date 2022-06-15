@@ -13,7 +13,8 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-     jdk 'JDK11_Centos' //Verisión preinstalada en la Configuración del Master
+     jdk 'JDK13_Centos' //Verisión preinstalada en la Configuración del Master
+     gradle 'Gradle5.0_Centos'
   }
 
   //Aquí comienzan los “items” del Pipeline
@@ -38,7 +39,7 @@ pipeline {
       steps{
         echo "------------>Compile & Unit Tests<------------"
         sh 'chmod +x ./microservicio/gradlew'
-        sh './microservicio/gradlew --b ./ADN-cursos-back/java-arquitectura-hexagonal/microservicio/build.gradle test'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle test'
       }
     }
 
@@ -66,7 +67,8 @@ pipeline {
     }
     success {
       echo 'This will run only if successful'
-      junit 'microservicio/dominio/build/test-results/test/*.xml' //RUTA RELATIVA DE LOS ARCHIVOS .XML
+      junit 'microservicio/dominio/build/test-results/test/*.xml'
+      junit 'microservicio/infraestructura/build/test-results/test/*.xml'
     }
     failure {
     echo 'This will run only if failed'
