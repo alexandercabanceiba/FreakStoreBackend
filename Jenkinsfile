@@ -1,4 +1,4 @@
-@Library('ceiba-jenkins-library')
+@Library('ceiba-jenkins-library') _
 pipeline {
   //Donde se va a ejecutar el Pipeline
   agent {
@@ -13,11 +13,12 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-    jdk 'JDK8_Centos' //Verisión preinstalada en la Configuración del Master
+     jdk 'JDK11_Centos' //Verisión preinstalada en la Configuración del Master
   }
 
   //Aquí comienzan los “items” del Pipeline
   stages{
+
     stage('Checkout') {
       steps{
         echo "------------>Checkout<------------"
@@ -25,11 +26,19 @@ pipeline {
       }
     }
 
+    stage('Clean') {
+      steps{
+        echo "------------>Clean<------------"
+        sh 'chmod +x ./microservicio/gradlew'
+    	sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
+      }
+    }
+
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-        sh 'chmod +x gradlew'
-        sh './gradlew --b ./build.gradle test'
+        sh 'chmod +x ./microservicio/gradlew'
+        sh './microservicio/gradlew --b ./ADN-cursos-back/java-arquitectura-hexagonal/microservicio/build.gradle test'
       }
     }
 
@@ -45,7 +54,8 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh './gradlew --b ./build.gradle build -x test'
+        //Construir sin tarea test que se ejecutó previamente
+        sh './microservicio/gradlew --b ./microservicio/build.gradle build -x test'
       }
     }
   }
@@ -56,11 +66,14 @@ pipeline {
     }
     success {
       echo 'This will run only if successful'
-      junit 'build/test-results/test/*.xml' //RUTA RELATIVA DE LOS ARCHIVOS .XML
+      junit 'microservicio/dominio/build/test-results/test/*.xml' //RUTA RELATIVA DE LOS ARCHIVOS .XML
     }
     failure {
-      echo 'This will run only if failed'
-      mail (to: 'alexander.cabanillas@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
+    echo 'This will run only if failed'
+    	  //send notifications about a Pipeline to an email
+    	  mail (to: 'alexander.cabanillas@ceiba.com.co',
+    		    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+    			body: "Something is wrong with ${env.BUILD_URL}")
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
