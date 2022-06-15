@@ -4,4 +4,5 @@ import com.ceiba.venta.modelo.entidad.Venta;
 
 public interface RepositorioVenta {
     Long guardar(Venta venta);
+    Venta obtener(Long id);
 }

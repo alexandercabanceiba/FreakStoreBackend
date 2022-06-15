@@ -3,7 +3,6 @@ package com.ceiba.inventario.controlador;
 import com.ceiba.inventario.comando.ComandoRegistrarInventario;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class ComandoRegistrarInventarioTestDataBuilder {
     private Long idArticulo;

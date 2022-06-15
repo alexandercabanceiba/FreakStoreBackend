@@ -1,8 +1,8 @@
-package com.ceiba.articulo.controlador;
+package com.ceiba.venta.controlador;
 
 import com.ceiba.ApplicationMock;
-import com.ceiba.articulo.puerto.repositorio.RepositorioArticulo;
 import com.ceiba.factura.controlador.ComandoControladorFactura;
+import com.ceiba.venta.puerto.repositorio.RepositorioVenta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ComandoControladorFactura.class)
 @ContextConfiguration(classes = ApplicationMock.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
- class ComandoControladorArticuloTest {
+class ComandoControladorVentaTest{
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -32,25 +33,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     private MockMvc mocMvc;
 
     @Autowired
-    private RepositorioArticulo repositorioArticulo;
+    private RepositorioVenta repositorioVenta;
 
     @Test
-    void crearArticuloExitoso() throws Exception {
-
-        var comandoRegistrarArticuloTestDataBuilder = new ComandoRegistrarArticuloTestDataBuilder().crearPorDefecto().build();
-
-        var resultado = mocMvc.perform(post("/articulo")
+    void crearVentaExitosa() throws Exception{
+        var comandoRegistrarVentaTestDataBuilder=new ComandoRegistrarVentaTestDataBuilder().crearPorDefecto().build();
+        var resultado = mocMvc.perform(post("/venta")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(comandoRegistrarArticuloTestDataBuilder)))
+                        .content(objectMapper.writeValueAsString(comandoRegistrarVentaTestDataBuilder)))
                 .andExpect(status().is2xxSuccessful()).andReturn();
 
         String jsonResult = resultado.getResponse().getContentAsString();
-        var respuesta = objectMapper.readValue(jsonResult, RespuestaArticulo.class);
+        var respuesta = objectMapper.readValue(jsonResult, RespuestaVenta.class);
 
-        var articuloGuardada = repositorioArticulo.obtener(respuesta.getValor());
+        var ventaGuardada = repositorioVenta.obtener(respuesta.getValor());
 
-        Assertions.assertEquals(1l, articuloGuardada.getIdCategoria().longValue());
-        Assertions.assertEquals("PRODUCTO PRUEBA 1", articuloGuardada.getDescripcion());
-        Assertions.assertEquals(BigDecimal.valueOf(150000), articuloGuardada.getPrecio());
+        Assertions.assertEquals(2l, ventaGuardada.getIdArticulo());
+        Assertions.assertEquals(10, ventaGuardada.getCantidadVenta());
+        Assertions.assertEquals(BigDecimal.valueOf(1222), ventaGuardada.getPrecioVenta());
+
     }
 }

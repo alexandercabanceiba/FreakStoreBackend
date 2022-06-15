@@ -1,8 +1,9 @@
 package com.ceiba.venta.adaptador.repositorio;
 
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
+import com.ceiba.infraestructura.jdbc.EjecucionBaseDeDatos;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
-import com.ceiba.inventario.adaptador.dao.MapeoInventarioVenta;
+import com.ceiba.venta.adaptador.dao.MapeoVenta;
 import com.ceiba.venta.modelo.entidad.Venta;
 import com.ceiba.venta.puerto.repositorio.RepositorioVenta;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -12,11 +13,17 @@ import org.springframework.stereotype.Repository;
 public class RepositorioVentaMysql implements RepositorioVenta {
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
+    private final MapeoVenta mapeoVenta;
+
     @SqlStatement(namespace = "venta", value = "crear")
     private static String sqlCrear;
 
-    public RepositorioVentaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate){
+    @SqlStatement(namespace = "venta", value = "obtenerporid")
+    private static String sqlObtenerPorId;
+
+    public RepositorioVentaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoVenta mapeoVenta){
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
+        this.mapeoVenta = mapeoVenta;
     }
 
     @Override
@@ -27,5 +34,13 @@ public class RepositorioVentaMysql implements RepositorioVenta {
         paramSource.addValue("CANTIDAD_VENTA", venta.getCantidadVenta());
 
         return this.customNamedParameterJdbcTemplate.crear(paramSource, sqlCrear);
+    }
+
+    @Override
+    public Venta obtener(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("ID", id);
+        return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .queryForObject(sqlObtenerPorId, paramSource, mapeoVenta));
     }
 }
