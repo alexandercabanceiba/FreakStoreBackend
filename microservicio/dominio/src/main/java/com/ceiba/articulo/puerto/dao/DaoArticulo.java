@@ -7,4 +7,6 @@ import java.util.List;
 public interface DaoArticulo {
 
     List<ArticuloDto> obtenerArticulos();
+
+    List<ArticuloDto> obtenerArticulosInventariados();
 }

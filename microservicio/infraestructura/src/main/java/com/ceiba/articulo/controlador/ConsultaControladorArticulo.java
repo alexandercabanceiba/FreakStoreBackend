@@ -1,6 +1,7 @@
 package com.ceiba.articulo.controlador;
 
 import com.ceiba.articulo.consulta.ManejadorConsultarArticulos;
+import com.ceiba.articulo.consulta.ManejadorConsultarArticulosInventariados;
 import com.ceiba.articulo.modelo.dto.ArticuloDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,15 +17,23 @@ import java.util.List;
 public class ConsultaControladorArticulo {
 
     private final ManejadorConsultarArticulos manejadorConsultarArticulos;
+    private final ManejadorConsultarArticulosInventariados manejadorConsultarArticulosInventariados;
 
-    public ConsultaControladorArticulo(ManejadorConsultarArticulos manejadorConsultarArticulos){
+    public ConsultaControladorArticulo(ManejadorConsultarArticulos manejadorConsultarArticulos,  ManejadorConsultarArticulosInventariados manejadorConsultarArticulosInventariados){
         this.manejadorConsultarArticulos = manejadorConsultarArticulos;
+        this.manejadorConsultarArticulosInventariados = manejadorConsultarArticulosInventariados;
     }
 
-    @GetMapping("obtener-articulos")
+    @GetMapping("obtener-articulos-sin-inventario")
     @Operation(summary = "Todas los Articulos", description = "Metodo utilizado para consultar todos ls articulos")
     public List<ArticuloDto> obtenerTodosLosArticulos() {
         return manejadorConsultarArticulos.ejecutar();
+    }
+
+    @GetMapping("obtener-articulos-inventariados")
+    @Operation(summary = "Todas los Articulos", description = "Metodo utilizado para consultar todos ls articulos")
+    public List<ArticuloDto> obtenerArticulosInventariados() {
+        return manejadorConsultarArticulosInventariados.ejecutar();
     }
 
 

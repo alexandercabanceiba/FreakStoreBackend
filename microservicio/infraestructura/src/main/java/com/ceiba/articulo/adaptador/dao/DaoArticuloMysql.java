@@ -17,6 +17,9 @@ public class DaoArticuloMysql implements DaoArticulo {
     @SqlStatement(namespace = "articulo", value = "obtenerarticulos")
     private static String sqlObtenerArticulos;
 
+    @SqlStatement(namespace = "articulo", value = "obtenerarticulosinventariados")
+    private static String sqlObtenerArticulosInventariados;
+
     public DaoArticuloMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoArticulo mapeoArticulo){
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
         this.mapeoArticulo = mapeoArticulo;
@@ -25,5 +28,11 @@ public class DaoArticuloMysql implements DaoArticulo {
     public List<ArticuloDto> obtenerArticulos() {
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .query(sqlObtenerArticulos, mapeoArticulo);
+    }
+
+    @Override
+    public List<ArticuloDto> obtenerArticulosInventariados() {
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .query(sqlObtenerArticulosInventariados, mapeoArticulo);
     }
 }

@@ -28,7 +28,7 @@ class ConsultaControladorCategoriasArticulosTest {
 
     @Test
     void consultarCategoriasDeArticulos() throws Exception {
-        mocMvc.perform(get("/articulo/obtener-articulos")
+        mocMvc.perform(get("/articulo/obtener-articulos-sin-inventario")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$[0].id", is(1)))
