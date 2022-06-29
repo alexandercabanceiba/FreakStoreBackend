@@ -6,10 +6,12 @@ import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.venta.adaptador.dao.MapeoVenta;
 import com.ceiba.venta.modelo.entidad.Venta;
 import com.ceiba.venta.puerto.repositorio.RepositorioVenta;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@AllArgsConstructor
 public class RepositorioVentaMysql implements RepositorioVenta {
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
@@ -20,11 +22,6 @@ public class RepositorioVentaMysql implements RepositorioVenta {
 
     @SqlStatement(namespace = "venta", value = "obtenerporid")
     private static String sqlObtenerPorId;
-
-    public RepositorioVentaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoVenta mapeoVenta){
-        this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-        this.mapeoVenta = mapeoVenta;
-    }
 
     @Override
     public Long guardar(Venta venta) {

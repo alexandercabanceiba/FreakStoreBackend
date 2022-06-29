@@ -2,47 +2,18 @@ package com.ceiba.articulo.modelo.entidad;
 
 import com.ceiba.categoria.modelo.entidad.Categoria;
 import com.ceiba.dominio.ValidadorArgumento;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
-
+@AllArgsConstructor
+@Data
 public class Articulo {
 
     private Long id;
     private Categoria categoria;
     private String descripcion;
     private BigDecimal precio;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public BigDecimal getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
-    }
 
     private Articulo( Categoria categoria, String descripcion, BigDecimal precio){
         this.categoria = categoria;

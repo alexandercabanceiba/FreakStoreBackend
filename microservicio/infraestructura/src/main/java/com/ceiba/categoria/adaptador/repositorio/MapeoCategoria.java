@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class MapeoCategoria implements RowMapper<Categoria>, MapperResult {
 
-
     @Override
     public Categoria mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         var id = resultSet.getLong("ID");

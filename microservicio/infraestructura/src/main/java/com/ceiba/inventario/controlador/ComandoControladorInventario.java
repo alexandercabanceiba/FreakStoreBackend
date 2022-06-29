@@ -5,19 +5,17 @@ import com.ceiba.inventario.comando.ComandoRegistrarInventario;
 import com.ceiba.inventario.comando.manejador.ManejadorRegistrarInventario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/inventario")
 @Tag(name = "Controlador comando Inventario")
+@AllArgsConstructor
 public class ComandoControladorInventario {
 
     private final ManejadorRegistrarInventario manejadorRegistrarInventario;
-
-    public ComandoControladorInventario(ManejadorRegistrarInventario manejadorRegistrarInventario){
-        this.manejadorRegistrarInventario = manejadorRegistrarInventario;
-    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

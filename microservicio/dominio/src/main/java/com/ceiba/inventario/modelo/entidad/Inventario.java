@@ -2,53 +2,17 @@ package com.ceiba.inventario.modelo.entidad;
 
 import com.ceiba.articulo.modelo.entidad.ArticuloInventario;
 import com.ceiba.dominio.ValidadorArgumento;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-
+@Data
+@AllArgsConstructor
 public class Inventario {
 
     private Long id;
     private ArticuloInventario articulo;
     private int cantidad;
     private String fechaIngreso;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ArticuloInventario getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(ArticuloInventario articulo) {
-        this.articulo = articulo;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(String fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public Inventario(Long id, ArticuloInventario articulo, int cantidad, String fechaIngreso){
-        this.id = id;
-        this.articulo = articulo;
-        this.cantidad = cantidad;
-        this.fechaIngreso = fechaIngreso;
-    }
 
     public Inventario(ArticuloInventario articulo, int cantidad, String fechaIngreso){
         this.articulo = articulo;

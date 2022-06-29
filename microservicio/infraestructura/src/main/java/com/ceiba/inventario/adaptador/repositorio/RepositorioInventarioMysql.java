@@ -7,10 +7,12 @@ import com.ceiba.inventario.modelo.entidad.Inventario;
 import com.ceiba.inventario.modelo.entidad.InventarioVenta;
 import com.ceiba.inventario.puerto.repositorio.RepositorioInventario;
 import com.ceiba.inventario.adaptador.dao.MapeoInventarioVenta;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@AllArgsConstructor
 public class RepositorioInventarioMysql implements RepositorioInventario {
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
@@ -24,12 +26,6 @@ public class RepositorioInventarioMysql implements RepositorioInventario {
 
     @SqlStatement(namespace = "inventario", value = "actualizarcantidad")
     private static String sqlActualizarCantidad;
-
-
-    public RepositorioInventarioMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoInventarioVenta mapeoInventarioVenta){
-        this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-        this.mapeoInventarioVenta = mapeoInventarioVenta;
-    }
 
     @Override
     public Long guardar(Inventario inventario) {
